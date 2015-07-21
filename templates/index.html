@@ -1,0 +1,40 @@
+{% extends "layout.html" %} {% block header %}
+<title>{{ websiteName }}</title>
+
+{% endblock %} {% block content %}
+<div class="posts-section">
+	{% for x in posts[:5] %}
+	<script>
+	function checkIfSure{{ x.postid }} () {
+	var sure = confirm("هل أنت متأكّد أنّك تريد حذف الموضوع؟ لن تستطيع استرجاعه!");
+	if (sure == true) {
+			window.location.assign("{{ url_for('postdelete', posturl=x.posturl) }}");
+	}
+
+	}
+	</script>
+	<div class="single-post">
+		<a href="{{ url_for('show_index') }}{{ x.posturl }}">
+			<h2>{{ x.posttitle }}</h2>
+		</a>
+		<div class="post-excerpt">{{ cleanCode(x.postcontent)|truncate(600)|safe }} <a href="{{ url_for('show_index') }}{{ x.posturl }}"><b>تابع القراءة</b></a></div>
+		<p><i class="fa fa-user"></i>كتبه: {{ x.postauthor }} <i class="fa fa-calendar"></i> بتاريخ: {{ x.postdate }}
+			{% if session.logged_in %}
+			<a class="button" href="{{ url_for('postedit', posturl=x.posturl) }}"><i class="fa fa-edit"></i> تحرير</a>
+			-
+			<a class="button" onclick="checkIfSure{{ x.postid }}()"><i class="fa fa-times"></i> حذف</a>
+			{% endif %}
+		</p>
+	</div>
+	
+	{% else %}
+	<div class="single-post">
+		<h3>لا يوجد أي مواضيع منشورة حاليًا.</h3>
+		<p>لم يتم نشر أي مواضيع على هذا الموقع بعد.</p>
+	</div>
+	{% endfor %}
+<p><a class="button" href="{{ url_for('archive') }}"><i class="fa fa-history"></i> أرشيف التدوينات السابقة</a><p>
+	</div>
+</div>
+
+{% endblock %}

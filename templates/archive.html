@@ -1,0 +1,17 @@
+{% extends "layout.html" %} {% block header %}
+<title>{{ websiteName }}</title>
+{% endblock %} {% block content %}
+  <ul class="archive">
+	{% for x in posts %}
+   <li><a href="{{x.posturl}}">{{ x.posttitle}} </a> - {{ x.postdate }} </li>
+
+
+	{% else %}
+	<div class="single-post">
+		<h3>لا يوجد أي مواضيع منشورة حاليًا.</h3>
+		<p>لم يتم نشر أي مواضيع على هذا الموقع بعد.</p>
+	</div>
+	{% endfor %}
+</ul>
+
+{% endblock %}

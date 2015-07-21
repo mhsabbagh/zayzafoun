@@ -1,0 +1,14 @@
+{% extends "layout.html" %} {% block content %}
+<h3>تسجيل الدخول</h3>
+{% if error %}
+<p class=error>
+	<strong>خطأ:</strong> {{ error }}{% endif %}
+	<div class="formContainer">
+	<form action="{{ url_for('login') }}" method=post>
+		اسم المستخدم:<input type=text name=username>
+		كلمة المرور:<input type=password name=password>
+		<input type=submit value=الدخول>
+	</form>
+  </div>
+
+	{% endblock %}

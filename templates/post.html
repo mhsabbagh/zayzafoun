@@ -1,0 +1,42 @@
+{% extends "layout.html" %} {% block header %}
+<title>{{ post[1]|safe }}</title>
+<script>
+function checkIfSure () {
+var sure = confirm("هل أنت متأكّد أنّك تريد حذف الموضوع؟ لن تستطيع استرجاعه!");
+if (sure == true) {
+    window.location.assign("{{ url_for('postdelete', posturl=post[2]) }}");
+}}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="post">
+  <a href="{{ currenturl }}">
+    <h2>{{ post[1] }}</h2>
+  </a>
+  <div class="post-content">{{ cleanCode(post[3])|safe }}</div>
+  <p><b><i class="fa fa-user"></i>كتبه:</b> {{ post[4] }} - <b><i class="fa fa-calendar"></i> بتاريخ:</b> {{ post[5] }}
+     		{% if session.logged_in %}
+  			<a class="button" href="{{ url_for('postedit', posturl=post[2]) }}"><i class="fa fa-edit"></i> تحرير</a></li>
+        -
+        <a class="button" onclick="checkIfSure()"><i class="fa fa-times"></i> حذف</a>
+  			{% endif %}</p>
+
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "{{ disqusName }}";
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+{% endblock %}
