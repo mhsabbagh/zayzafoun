@@ -1,5 +1,5 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
-# all the imports
 import sqlite3
 # import bleach
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, current_app
@@ -8,8 +8,8 @@ from contextlib import closing
 # configuration
 WEBSITENAME = "زيزفون"
 DATABASE = 'zayzafoun.db'
-DEBUG = False
-SECRET_KEY = 'EVAQZHWCMWEJWHTOPPOIEWMCOIGWJGJWEXZOKWMTP'
+DEBUG = True
+SECRET_KEY = 'DFSGSYREUHRVHRIMUIMIOYPYK'
 USERNAME = 'admin'
 PASSWORD = 'default'
 # Don't forget to change the disqus name! Or the comments section won't show up.

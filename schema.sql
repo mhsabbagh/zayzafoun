@@ -17,14 +17,3 @@ create table if not exists pages (
   pagedate TIMESTAMP
   DEFAULT CURRENT_TIMESTAMP
 );
-
-create table if not exists users (
-  userid integer primary key autoincrement,
-  username text not null,
-  userpass text not null
-);
-
-create table if not exists other (
-  settingid integer primary key autoincrement,
-  settingvalue text not null
-);
