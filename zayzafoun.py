@@ -12,7 +12,8 @@ DEBUG = False
 SECRET_KEY = 'EVAQZHWCMWEJWHTOPPOIEWMCOIGWJGJWEXZOKWMTP'
 USERNAME = 'admin'
 PASSWORD = 'default'
-DISQUSNAME = "zayzafoun"
+# Don't forget to change the disqus name! Or the comments section won't show up.
+DISQUSNAME = "SOMETHING"
 
 
 # Creating the application.
