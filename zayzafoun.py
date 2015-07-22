@@ -7,11 +7,9 @@ from contextlib import closing
 
 # configuration
 WEBSITENAME = "زيزفون"
-WEBSITEOWNER = "M.Hanny Sabbagh"
-WEBSITEOWNEREMAIL = "hannysabbagh@hotmail.com"
 DATABASE = 'zayzafoun.db'
-DEBUG = True
-SECRET_KEY = 'FWEN34E5F1W4XW8G2EW4'
+DEBUG = False
+SECRET_KEY = 'EVAQZHWCMWEJWHTOPPOIEWMCOIGWJGJWEXZOKWMTP'
 USERNAME = 'admin'
 PASSWORD = 'default'
 DISQUSNAME = "zayzafoun"
