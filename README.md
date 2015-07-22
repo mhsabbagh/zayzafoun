@@ -1,6 +1,14 @@
 # Zayzafoun
 
-A simple Arabic blog script written in Python & Flask. LESS and FontAwesome are used. Right now the script interface is available in Arabic only.
+A simple Arabic blog script written in Python & Flask. Right now the script interface is available in Arabic only.
+
+Thanks for:
+
+* Python: https://www.python.org/
+* Flask: http://flask.pocoo.org/
+* FontAwesome: http://fortawesome.github.io/Font-Awesome/
+* TinyMCE: http://www.tinymce.com/
+* LESS: http://lesscss.org/
 
 By: M.Hanny Sabbagh <hannysabbagh[at]hotmail.com]
 
