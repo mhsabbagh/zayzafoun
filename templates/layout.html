@@ -5,56 +5,50 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/less" href="{{ url_for('static', filename='style.less') }}">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.0/less.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> {% block header %} {% endblock %}
 
 </head>
 
 <body>
-  <div class="nav">
+  <div class="rightsidebar">
+  <div class="widget">
     <ul>
-      <li><a class="websitename" href="{{ url_for('show_index') }}"><i class="fa fa-home"></i> {{ websiteName }}</a></li>
+      <li><a class="websitename" href="{{ websiteUrl }}"><i class="fa fa-home"></i> {{ websiteName }}</a></li>
       {% for a in pages %}
-      <li><a href="{{ url_for('show_index') }}page/{{a.pageurl}}"><i class="fa fa-pagelines"></i> {{ a.pagetitle }}</a></li>
-      {% endfor %} {% if session.logged_in %}
-      <li class="floatleft"><a href="{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> تسجيل الخروج</a></li>
-      <li class="floatleft"><a href="{{ url_for('publish') }}"><i class="fa fa-plus-square "></i> محتوى جديد</a></li>
+      <li><a href="{{ websiteUrl }}page/{{a.pageurl}}"><i class="fa fa-pagelines"></i> {{ a.pagetitle }}</a></li>
+      {% endfor %}
+      <li><a href="{{ url_for('archive') }}"><i class="fa fa-history"></i> الأرشيف</a></li>
+       {% if session.logged_in %}
+      <li><a href="{{ url_for('publish') }}"><i class="fa fa-plus-square "></i> محتوى جديد</a></li>
+      <li><a href="{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> تسجيل الخروج</a></li>
       {% else %}
-      <li class="floatleft"><a href="{{ url_for('login') }}"><i class="fa fa-sign-in"></i> تسجيل الدخول</a></li>
+      <li><a href="{{ url_for('login') }}"><i class="fa fa-sign-in"></i> تسجيل الدخول</a></li>
       {% endif %}
-      <li class="floatleft"><a href="{{ url_for('archive') }}"><i class="fa fa-history"></i> الأرشيف</a></li>
     </ul>
   </div>
 
-  <div class="header"></div>
+  <div class="widget">
+      <h4>آخر التعليقات</h4>
+      <script type="text/javascript" src="http://{{ disqusName }}.disqus.com/recent_comments_widget.js?num_items=2&hide_avatars=0&avatar_size=40&excerpt_length=200"></script>
+  </div>
+
+  <div class="widget">
+      <h4>ابقى على تواصل</h4>
+    <ul>
+      <li><a href="#"><i class="fa fa-facebook"></i> تابعني على فيسبوك</a></li>
+      <li><a href="#"><i class="fa fa-twitter"></i> تابعني على تويتر</a></li>
+      <li><a href="#"><i class="fa fa-google-plus"></i> تابعني على +جوجل</a></li>
+    </ul>
+  </div>
+  </div>
+
 
   <div class="main-section">
     {% block content %} {% endblock %}
-  </div>
+  </div> </div>
 
   <div class="footer">
-
-    <div class="widget">
-      <h4>تابعني على المواقع الاجتماعية</h4>
-      <a href="#">
-        <img src="{{ url_for('show_index' )}}static/img/social/Facebook-icon.png" />
-      </a>
-      <a href="#">
-        <img src="{{ url_for('show_index' )}}static/img/social/Twitter-icon.png" />
-      </a>
-      <a href="#">
-        <img src="{{ url_for('show_index' )}}static/img/social/Youtube-icon.png" />
-      </a>
-      <a href="#">
-        <img src="{{ url_for('show_index' )}}static/img/social/GitHub-icon.png" />
-      </a>
-    </div>
-
-    <div class="widget">
-      <h4>آخر التعليقات</h4>
-      <script type="text/javascript" src="http://tajribython.disqus.com/recent_comments_widget.js?num_items=3&hide_avatars=0&avatar_size=40&excerpt_length=200"></script>
-    </div>
 
     <div class="widget">
       <h4>رخصة المحتوى</h4>

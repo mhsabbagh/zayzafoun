@@ -38,7 +38,7 @@ def cleanCode(text):
 
 @app.context_processor
 def variables_def():
-  return dict(websiteName=unicode(WEBSITENAME, "utf-8"), disqusName=DISQUSNAME, currentUrl=request.path, cleanCode=cleanCode)
+  return dict(websiteName=unicode(WEBSITENAME, "utf-8"), websiteUrl=request.url_root, disqusName=DISQUSNAME, currentUrl=request.path, cleanCode=cleanCode)
 
 def connect_db():
   return sqlite3.connect(app.config['DATABASE'])
@@ -120,13 +120,19 @@ def show_post(posturl):
 
 @app.route('/<posturl>/edit')
 def postedit(posturl):
-  return render_template('edit.html', post = editpost(posturl), contentType = "post", pages=get_pages())
+  if session.get('logged_in'):
+    return render_template('edit.html', post = editpost(posturl), contentType = "post", pages=get_pages())
+  else:
+    abort(404)
 
 @app.route('/<posturl>/delete')
 def postdelete(posturl):
+  if session.get('logged_in'):
     g.db.execute('delete from posts where posturl = ? limit 1', (posturl,))
     g.db.commit()
     return render_template('index.html', posts=get_posts(), pages=get_pages())
+  else:
+    abort(404)
 
 @app.route('/page/<pageurl>')
 def show_page(pageurl):
@@ -134,13 +140,19 @@ def show_page(pageurl):
 
 @app.route('/page/<pageurl>/edit')
 def pageedit(pageurl):
+  if session.get('logged_in'):
     return render_template('edit.html', post = editpage(pageurl), contentType = "page", pages=get_pages())
+  else:
+    abort(404)
 
 @app.route('/page/<pageurl>/delete')
 def pagedelete(pageurl):
+  if session.get('logged_in'):
       g.db.execute('delete from pages where pageurl = ? limit 1', (pageurl,))
       g.db.commit()
       return render_template('index.html', posts=get_posts(), pages=get_pages())
+  else:
+    abort(404)
 
 @app.route('/archive')
 def archive():
@@ -148,33 +160,39 @@ def archive():
 
 @app.route('/publish', methods=['GET', 'POST'])
 def publish():
-  if request.method == 'POST':
-    if request.form["contenttype"] == "post":
-      g.db.execute('insert into posts (posttitle, posturl, postcontent, postauthor) values (?, ?, ?, ?)',
-                   (request.form['title'], request.form['url'], request.form['content'], session['username']))
-      g.db.commit()
-      return redirect(url_for('show_index'))
-    else:
-      g.db.execute('insert into pages (pagetitle, pageurl, pagecontent, pageauthor) values (?, ?, ?, ?)',
-                   (request.form['title'], request.form['url'], request.form['content'], session['username']))
-      g.db.commit()
-      return redirect(url_for('show_index'))
-  elif request.method == 'GET':
-    return render_template('new.html', pages=get_pages())
+  if session.get('logged_in'):
+    if request.method == 'POST':
+      if request.form["contenttype"] == "post":
+        g.db.execute('insert into posts (posttitle, posturl, postcontent, postauthor) values (?, ?, ?, ?)',
+                     (request.form['title'], request.form['url'], request.form['content'], session['username']))
+        g.db.commit()
+        return redirect(request.url_root)
+      else:
+        g.db.execute('insert into pages (pagetitle, pageurl, pagecontent, pageauthor) values (?, ?, ?, ?)',
+                     (request.form['title'], request.form['url'], request.form['content'], session['username']))
+        g.db.commit()
+        return redirect(request.url_root)
+    elif request.method == 'GET':
+      return render_template('new.html', pages=get_pages())
+  else:
+    return abort(404)
 
 @app.route('/publishedit', methods=['POST'])
 def doEdit():
-  if request.method == 'POST':
-    if request.form["contenttype"] == "post":
-      g.db.execute('UPDATE posts SET posttitle = ?, postcontent = ? WHERE posturl = ?', (request.form['title'], request.form['content'], request.form['url']))
-      g.db.commit()
-      return redirect(url_for('show_index'))
+  if session.get('logged_in'):
+    if request.method == 'POST':
+      if request.form["contenttype"] == "post":
+        g.db.execute('UPDATE posts SET posttitle = ?, postcontent = ? WHERE posturl = ?', (request.form['title'], request.form['content'], request.form['url']))
+        g.db.commit()
+        return redirect(request.url_root)
+      else:
+        g.db.execute('UPDATE pages SET pagetitle = ?, pagecontent = ? WHERE pageurl = ?', (request.form['title'], request.form['content'], request.form['url']))
+        g.db.commit()
+        return redirect(request.url_root)
     else:
-      g.db.execute('UPDATE pages SET pagetitle = ?, pagecontent = ? WHERE pageurl = ?', (request.form['title'], request.form['content'], request.form['url']))
-      g.db.commit()
-      return redirect(url_for('show_index'))
+        abort(404)
   else:
-      return render_template('404.html'), 404
+    abort(404)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -187,14 +205,14 @@ def login():
     else:
       session['logged_in'] = True
       session['username'] = app.config['USERNAME']
-      return redirect(url_for('show_index'))
+      return redirect(request.url_root)
   return render_template('login.html', pages=get_pages())
 
 
 @app.route('/logout')
 def logout():
   session.pop('logged_in', None)
-  return redirect(url_for('show_index'))
+  return redirect(request.url_root)
 
 if __name__ == "__main__":
   init_db()

@@ -18,7 +18,7 @@
 			<h2>{{ x.posttitle }}</h2>
 		</a>
 		<div class="post-excerpt">{{ cleanCode(x.postcontent)|truncate(600)|safe }} <a href="{{ url_for('show_index') }}{{ x.posturl }}"><b>تابع القراءة</b></a></div>
-		<p><i class="fa fa-user"></i>كتبه: {{ x.postauthor }} <i class="fa fa-calendar"></i> بتاريخ: {{ x.postdate }}
+		<p><i class="fa fa-user"></i>كتبه: {{ x.postauthor }} <i class="fa fa-calendar"></i> بتاريخ: {{ x.postdate[0:10] }}
 			{% if session.logged_in %}
 			<a class="button" href="{{ url_for('postedit', posturl=x.posturl) }}"><i class="fa fa-edit"></i> تحرير</a>
 			-

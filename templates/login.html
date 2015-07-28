@@ -1,4 +1,9 @@
-{% extends "layout.html" %} {% block content %}
+{% extends "layout.html" %}
+{% block header %}
+<title>تسجيل الدخول - {{ websiteName }}</title>
+{% endblock %}
+
+{% block content %}
 <h3>تسجيل الدخول</h3>
 {% if error %}
 <p class=error>
