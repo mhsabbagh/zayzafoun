@@ -18,12 +18,12 @@
       {% for a in pages %}
       <li><a href="{{ websiteUrl }}page/{{a.pageurl}}"><i class="fa fa-pagelines"></i> {{ a.pagetitle }}</a></li>
       {% endfor %}
-      <li><a href="{{ url_for('archive') }}"><i class="fa fa-history"></i> الأرشيف</a></li>
+      <li><a href="{{ websiteUrl }}{{ url_for('archive') }}"><i class="fa fa-history"></i> الأرشيف</a></li>
        {% if session.logged_in %}
-      <li><a href="{{ url_for('publish') }}"><i class="fa fa-plus-square "></i> محتوى جديد</a></li>
-      <li><a href="{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> تسجيل الخروج</a></li>
+      <li><a href="{{ websiteUrl }}{{ url_for('publish') }}"><i class="fa fa-plus-square "></i> محتوى جديد</a></li>
+      <li><a href="{{ websiteUrl }}{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> تسجيل الخروج</a></li>
       {% else %}
-      <li><a href="{{ url_for('login') }}"><i class="fa fa-sign-in"></i> تسجيل الدخول</a></li>
+      <li><a href="{{ websiteUrl }}{{ url_for('login') }}"><i class="fa fa-sign-in"></i> تسجيل الدخول</a></li>
       {% endif %}
     </ul>
   </div>

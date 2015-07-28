@@ -38,7 +38,7 @@ def cleanCode(text):
 
 @app.context_processor
 def variables_def():
-  return dict(websiteName=unicode(WEBSITENAME, "utf-8"), websiteUrl=request.url_root, disqusName=DISQUSNAME, currentUrl=request.path, cleanCode=cleanCode)
+  return dict(websiteName=unicode(WEBSITENAME, "utf-8"), websiteUrl=request.url_root[:-1], disqusName=DISQUSNAME, currentUrl=request.path, cleanCode=cleanCode)
 
 def connect_db():
   return sqlite3.connect(app.config['DATABASE'])
