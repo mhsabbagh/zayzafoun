@@ -1,6 +1,6 @@
 {% extends "layout.html" %} {% block header %}
 <title>إضافة محتوى جديد - {{ websiteName }}</title>
-<script type="text/javascript" src="{{ url_for('show_index') }}static/tinymce/tinymce.min.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}/static/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
     tinymce.init({
         selector: "#textarea",

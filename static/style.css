@@ -13,12 +13,6 @@ body {
   border-top: 5px solid rgba(52, 73, 94, 0.975);
   transition-duration: 0.5s;
 }
-.borderbottom {
-  border-bottom: 1px solid #eee;
-}
-.floatleft {
-  float: left;
-}
 textarea {
   direction: rtl;
   -webkit-box-sizing: border-box;
@@ -115,19 +109,16 @@ code {
   width: 70%;
   float: left;
   margin: 1% 0 0 5%;
+  padding: 1%;
   display: table;
   background: rgba(248, 248, 248, 0.75);
   -webkit-box-shadow: 0 0 3px 0 rgba(50, 50, 50, 0.75);
   -moz-box-shadow: 0 0 3px 0 rgba(50, 50, 50, 0.75);
   box-shadow: 0 0 3px 0 rgba(50, 50, 50, 0.75);
 }
- .post {
-  padding: 1%;
+.single-post h2 {
+  text-align: center;
 }
-.posts-section {
-  padding: 1%;
-}
-
 .archive {
   text-align: right;
   list-style-type: none;
@@ -137,25 +128,6 @@ code {
 .archive li {
   width: 100%;
   font-size: 22px;
-}
-.footer {
-  background: rgba(248, 248, 248, 0.75);
-  text-align: center;
-  width: 70%;
-  display: table;
-  float: left;
-  margin: 1% 0 0 5%;
-  -webkit-box-shadow: 0 0 3px 0 rgba(50, 50, 50, 0.75);
-  -moz-box-shadow: 0 0 3px 0 rgba(50, 50, 50, 0.75);
-  box-shadow: 0 0 3px 0 rgba(50, 50, 50, 0.75);
-}
-.footer .widget {
-  width: 30%;
-  display: inline-table;
-}
-.footer .widget h4 {
-  background: #f6f6f6;
-  padding: 5px;
 }
 .formContainer {
   margin: 10px auto;

@@ -1,39 +1,25 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import sqlite3
-# import bleach
+import sqlite3, os
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, current_app
 from contextlib import closing
 
 # configuration
 WEBSITENAME = "زيزفون"
-DATABASE = 'zayzafoun.db'
-DEBUG = True
-SECRET_KEY = 'DFSGSYREUHRVHRIMUIMIOYPYK'
+DATABASE = os.getcwd() + '/' + 'zayzafoun.db'
+DEBUG = False
+SECRET_KEY = 'DFSGSY$#%#^%&5375$#fhgf37I365OY8*PYK'
 USERNAME = 'admin'
 PASSWORD = 'default'
 # Don't forget to change the disqus name! Or the comments section won't show up.
-DISQUSNAME = "SOMETHING"
+DISQUSNAME = "tajribython"
 
 
 # Creating the application.
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-## You can uncomment this section if you want to run bleach to clean the code.
-## Right now, it does nothing.
-#tags = ['b', 'p', 'strong', 'pre', 'code', 'img', 'ul', 'li', 'i', 'a', 'ol', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'table', 'tr', 'td', 'div', 'span', 'font', 'video']
-#attributes = {
-#    'a': ['href', 'rel'],
-#    'img': ['src', 'alt'],
-#    'div': ['align', 'style', 'class'],
-#    'font': ['face', 'color', 'size'],
-#    'span': ['style']
-#}
-
 def cleanCode(text):
-  ## Don't forget to remove the comment here too, and call me pro.
-  #newtext = bleach.clean(text, tags=tags, attributes=attributes)
   return text
 
 @app.context_processor
@@ -46,7 +32,7 @@ def connect_db():
 
 def init_db():
   with closing(connect_db()) as db:
-    with app.open_resource('schema.sql', mode='r') as f:
+    with app.open_resource(os.getcwd() + '/' + 'schema.sql', mode='r') as f:
       db.cursor().executescript(f.read())
     db.commit()
 
@@ -75,11 +61,14 @@ def single_post(posturl):
   return post
 
 def editpost(posturl):
+  if session.get('logged_in'):
     getPost = g.db.execute('select * from posts where posturl = ?', (posturl,))
     for n in getPost.fetchall():
       posttitle, posturl, postcontent, = n[1], n[2], n[3]
     post = [posttitle, posturl, postcontent]
     return post
+  else:
+    abort(404)
 
 def single_page(pageurl):
   showingpage = g.db.execute('select * from pages where pageurl= ?', (pageurl,))
@@ -89,11 +78,14 @@ def single_page(pageurl):
   return page
 
 def editpage(pageurl):
+  if session.get('logged_in'):
     getPage = g.db.execute('select * from pages where pageurl = ?', (pageurl,))
     for n in getPage.fetchall():
       pagetitle, pageurl, pagecontent, = n[1], n[2], n[3]
     page = [pageurl, pagetitle, pagecontent]
     return page
+  else:
+    abort(404)
 
 @app.before_request
 def before_request():
@@ -128,7 +120,7 @@ def postedit(posturl):
 @app.route('/<posturl>/delete')
 def postdelete(posturl):
   if session.get('logged_in'):
-    g.db.execute('delete from posts where posturl = ? limit 1', (posturl,))
+    g.db.execute('delete from posts where posturl = ?', (posturl,))
     g.db.commit()
     return render_template('index.html', posts=get_posts(), pages=get_pages())
   else:
@@ -148,7 +140,7 @@ def pageedit(pageurl):
 @app.route('/page/<pageurl>/delete')
 def pagedelete(pageurl):
   if session.get('logged_in'):
-      g.db.execute('delete from pages where pageurl = ? limit 1', (pageurl,))
+      g.db.execute('delete from pages where pageurl = ?', (pageurl,))
       g.db.commit()
       return render_template('index.html', posts=get_posts(), pages=get_pages())
   else:

@@ -10,11 +10,11 @@ if (sure == true) {
 {% endblock %}
 
 {% block content %}
-<div class="post">
+<div class="single-post">
   <a href="{{ currentUrl }}">
     <h2>{{ post[1] }}</h2>
   </a>
-  <div class="post-content">{{ cleanCode(post[3])|safe }}</div>
+  <p>{{ cleanCode(post[3])|safe }}</p>
   <p><b><i class="fa fa-user"></i>كتبه:</b> {{ post[4] }} - <b><i class="fa fa-calendar"></i> بتاريخ:</b> {{ post[5] }}
      		{% if session.logged_in %}
   			<a class="button" href="{{ url_for('postedit', posturl=post[2]) }}"><i class="fa fa-edit"></i> تحرير</a></li>

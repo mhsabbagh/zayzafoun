@@ -16,7 +16,7 @@
     <ul>
       <li><a class="websitename" href="{{ websiteUrl }}"><i class="fa fa-home"></i> {{ websiteName }}</a></li>
       {% for a in pages %}
-      <li><a href="{{ websiteUrl }}page/{{a.pageurl}}"><i class="fa fa-pagelines"></i> {{ a.pagetitle }}</a></li>
+      <li><a href="{{ websiteUrl }}/page/{{a.pageurl}}"><i class="fa fa-pagelines"></i> {{ a.pagetitle }}</a></li>
       {% endfor %}
       <li><a href="{{ websiteUrl }}{{ url_for('archive') }}"><i class="fa fa-history"></i> الأرشيف</a></li>
        {% if session.logged_in %}
@@ -46,19 +46,12 @@
 
   <div class="main-section">
     {% block content %} {% endblock %}
-  </div> </div>
 
-  <div class="footer">
-
-    <div class="widget">
-      <h4>رخصة المحتوى</h4>
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
-        <img alt="رخصة المشاع الابداعي" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
-      </a>
-      <br />هذا المُصنَّف مرخص بموجب <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">رخصة المشاع الإبداعي نَسب المُصنَّف - الترخيص بالمثل 4.0 دولي</a>.
-    </div>
 
   </div>
+
+
+
 </body>
 
 </html>

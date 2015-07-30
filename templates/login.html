@@ -5,9 +5,6 @@
 
 {% block content %}
 <h3>تسجيل الدخول</h3>
-{% if error %}
-<p class=error>
-	<strong>خطأ:</strong> {{ error }}{% endif %}
 	<div class="formContainer">
 	<form action="{{ url_for('login') }}" method=post>
 		اسم المستخدم:<input type=text name=username>
