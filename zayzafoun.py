@@ -6,7 +6,7 @@ from contextlib import closing
 
 # configuration
 WEBSITENAME = "زيزفون"
-DATABASE = os.getcwd() + '/' + 'zayzafoun.db'
+DATABASE = "" + os.getcwd() + '/' + 'zayzafoun.db' + ""
 DEBUG = False
 SECRET_KEY = 'DFSGSY$#%#^%&5375$#fhgf37I365OY8*PYK'
 USERNAME = 'admin'
@@ -32,7 +32,7 @@ def connect_db():
 
 def init_db():
   with closing(connect_db()) as db:
-    with app.open_resource(os.getcwd() + '/' + 'schema.sql', mode='r') as f:
+    with app.open_resource("" + os.getcwd() + '/' + 'schema.sql' + "", mode='r') as f:
       db.cursor().executescript(f.read())
     db.commit()
 
