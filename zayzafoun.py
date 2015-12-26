@@ -4,27 +4,22 @@ import sqlite3, os
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, current_app
 from contextlib import closing
 
-# configuration
-WEBSITENAME = "زيزفون"
-DATABASE = "" + os.getcwd() + '/' + 'zayzafoun.db' + ""
-DEBUG = False
-SECRET_KEY = 'DFSGSY$#%#^%&5375$#fhgf37I365OY8*PYK'
-USERNAME = 'admin'
-PASSWORD = 'default'
-# Don't forget to change the disqus name! Or the comments section won't show up.
-DISQUSNAME = "tajribython"
-
-
 # Creating the application.
 app = Flask(__name__)
-app.config.from_object(__name__)
+app.config.from_object("config")
 
 def cleanCode(text):
   return text
 
 @app.context_processor
 def variables_def():
-  return dict(websiteName=unicode(WEBSITENAME, "utf-8"), websiteUrl=request.url_root[:-1], disqusName=DISQUSNAME, currentUrl=request.path, cleanCode=cleanCode)
+  return dict(
+        websiteName=unicode(app.config["WEBSITENAME"], "utf-8"),
+        websiteUrl=request.url_root[:-1],
+        disqusName=app.config["DISQUSNAME"],
+        currentUrl=request.path,
+        cleanCode=cleanCode
+        )
 
 def connect_db():
   return sqlite3.connect(app.config['DATABASE'])
@@ -32,7 +27,7 @@ def connect_db():
 
 def init_db():
   with closing(connect_db()) as db:
-    with app.open_resource("" + os.getcwd() + '/' + 'schema.sql' + "", mode='r') as f:
+    with app.open_resource(os.path.join(os.getcwd(), "schema.sql"), mode='r') as f:
       db.cursor().executescript(f.read())
     db.commit()
 
