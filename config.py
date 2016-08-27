@@ -1,6 +1,5 @@
-import os
 # -*- coding: utf-8 -*-
-
+import os
 WEBSITENAME = "زيزفون"
 DATABASE = os.path.join(os.getcwd(), "zayzafoun.db")
 DEBUG = False
