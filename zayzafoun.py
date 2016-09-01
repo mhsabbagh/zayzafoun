@@ -184,6 +184,8 @@ def doEdit():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+  if session.get('logged_in'):
+    return redirect(request.url_root)
   if request.method == 'POST':
     if request.form['username'] != app.config['USERNAME']:
       error = 'Invalid username'
