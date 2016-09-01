@@ -2,7 +2,7 @@
 <title>{{ post[1]|safe }}</title>
 <script>
 function checkIfSure () {
-var sure = confirm("هل أنت متأكّد أنّك تريد حذف الموضوع؟ لن تستطيع استرجاعه!");
+var sure = confirm("Are you sure you want to delete the post?");
 if (sure == true) {
     window.location.assign("{{ url_for('postdelete', posturl=post[2]) }}");
 }}
@@ -15,11 +15,11 @@ if (sure == true) {
     <h2>{{ post[1] }}</h2>
   </a>
   <p>{{ cleanCode(post[3])|safe }}</p>
-  <p><b><i class="fa fa-user"></i>كتبه:</b> {{ post[4] }} - <b><i class="fa fa-calendar"></i> بتاريخ:</b> {{ post[5] }}
+  <p><b><i class="fa fa-user"></i> Author:</b> {{ post[4] }} - <b><i class="fa fa-calendar"></i> Date:</b> {{ post[5] }}
      		{% if session.logged_in %}
-  			<a class="button" href="{{ url_for('postedit', posturl=post[2]) }}"><i class="fa fa-edit"></i> تحرير</a></li>
+  			<a class="button" href="{{ url_for('postedit', posturl=post[2]) }}"><i class="fa fa-edit"></i> Edit</a></li>
         -
-        <a class="button" onclick="checkIfSure()"><i class="fa fa-times"></i> حذف</a>
+        <a class="button" onclick="checkIfSure()"><i class="fa fa-times"></i> Delete</a>
   			{% endif %}</p>
 
   <div id="disqus_thread"></div>

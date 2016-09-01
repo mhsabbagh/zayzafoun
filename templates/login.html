@@ -1,15 +1,15 @@
 {% extends "layout.html" %}
 {% block header %}
-<title>تسجيل الدخول - {{ websiteName }}</title>
+<title>Login - {{ websiteName }}</title>
 {% endblock %}
 
 {% block content %}
-<h3>تسجيل الدخول</h3>
+<h3>Login</h3>
 	<div class="formContainer">
 	<form action="{{ url_for('login') }}" method=post>
-		اسم المستخدم:<input type=text name=username>
-		كلمة المرور:<input type=password name=password>
-		<input type=submit value=الدخول>
+		Username:<input type=text name=username>
+		Password:<input type=password name=password>
+		<input type=submit value=Login>
 	</form>
   </div>
 

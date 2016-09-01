@@ -6,7 +6,7 @@
 	{% for x in posts[:5] %}
 	<script>
 	function checkIfSure{{ x.postid }} () {
-	var sure = confirm("هل أنت متأكّد أنّك تريد حذف الموضوع؟ لن تستطيع استرجاعه!");
+	var sure = confirm("Are you sure you want to delete the post?");
 	if (sure == true) {
 			window.location.assign("{{ url_for('postdelete', posturl=x.posturl) }}");
 	}
@@ -17,24 +17,22 @@
 		<a href="{{ url_for('show_index') }}{{ x.posturl }}">
 			<h2>{{ x.posttitle }}</h2>
 		</a>
-		<div class="post-excerpt">{{ cleanCode(x.postcontent)|truncate(600)|safe }} <a href="{{ url_for('show_index') }}{{ x.posturl }}"><b>تابع القراءة</b></a></div>
-		<p><i class="fa fa-user"></i>كتبه: {{ x.postauthor }} <i class="fa fa-calendar"></i> بتاريخ: {{ x.postdate[0:10] }}
+		<div class="post-excerpt">{{ cleanCode(x.postcontent)|truncate(600)|safe }} <a href="{{ url_for('show_index') }}{{ x.posturl }}"><b>Continue Reading</b></a></div>
+		<p><i class="fa fa-user"></i> Author: {{ x.postauthor }} <i class="fa fa-calendar"></i> Date: {{ x.postdate[0:10] }}
 			{% if session.logged_in %}
-			<a class="button" href="{{ url_for('postedit', posturl=x.posturl) }}"><i class="fa fa-edit"></i> تحرير</a>
+			<a class="button" href="{{ url_for('postedit', posturl=x.posturl) }}"><i class="fa fa-edit"></i> Edit</a>
 			-
-			<a class="button" onclick="checkIfSure{{ x.postid }}()"><i class="fa fa-times"></i> حذف</a>
+			<a class="button" onclick="checkIfSure{{ x.postid }}()"><i class="fa fa-times"></i> Delete</a>
 			{% endif %}
 		</p>
 	</div>
+
 	
 	{% else %}
-	<div class="single-post">
-		<h3>لا يوجد أي مواضيع منشورة حاليًا.</h3>
-		<p>لم يتم نشر أي مواضيع على هذا الموقع بعد.</p>
-	</div>
+		<h2><i class="fa fa-star fa-4x" aria-hidden="true"></i>
+</h2>
+		<h3>Whoola! Your website is ready to go! Start by adding a new post or page from the top bar.</h3>
 	{% endfor %}
-
-<center><p><a class="button" href="{{ url_for('archive') }}"><i class="fa fa-history"></i> أرشيف التدوينات السابقة</a><p></center>
+<center><p><a class="button" href="{{ url_for('archive') }}"><i class="fa fa-history"></i> Archive of Previous Articles</a><p></center>
 </div>
-
 {% endblock %}

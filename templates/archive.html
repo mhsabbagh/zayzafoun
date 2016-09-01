@@ -1,5 +1,5 @@
 {% extends "layout.html" %} {% block header %}
-<title>الأرشيف - {{ websiteName }}</title>
+<title>Archive - {{ websiteName }}</title>
 {% endblock %} {% block content %}
   <ul class="archive">
 	{% for x in posts %}
@@ -7,10 +7,8 @@
 
 
 	{% else %}
-	<div class="single-post">
-		<h3>لا يوجد أي مواضيع منشورة حاليًا.</h3>
-		<p>لم يتم نشر أي مواضيع على هذا الموقع بعد.</p>
-	</div>
+		<h3>No posts published yet.</h3>
+		<p>This website is still new, wait for content to come.</p>
 	{% endfor %}
 </ul>
 

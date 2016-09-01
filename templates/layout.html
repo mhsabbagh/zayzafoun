@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -11,47 +11,46 @@
 </head>
 
 <body>
-  <div class="rightsidebar">
-  <div class="widget">
+  <nav>
     <ul>
       <li><a class="websitename" href="{{ websiteUrl }}"><i class="fa fa-home"></i> {{ websiteName }}</a></li>
       {% for a in pages %}
       <li><a href="{{ websiteUrl }}/page/{{a.pageurl}}"><i class="fa fa-pagelines"></i> {{ a.pagetitle }}</a></li>
       {% endfor %}
-      <li><a href="{{ websiteUrl }}{{ url_for('archive') }}"><i class="fa fa-history"></i> الأرشيف</a></li>
+      <li><a href="{{ websiteUrl }}{{ url_for('archive') }}"><i class="fa fa-history"></i> Archive</a></li>
        {% if session.logged_in %}
-      <li><a href="{{ websiteUrl }}{{ url_for('publish') }}"><i class="fa fa-plus-square "></i> محتوى جديد</a></li>
-      <li><a href="{{ websiteUrl }}{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> تسجيل الخروج</a></li>
+      <li><a href="{{ websiteUrl }}{{ url_for('publish') }}"><i class="fa fa-plus-square "></i> New Content</a></li>
+      <li style="float: right;"><a href="{{ websiteUrl }}{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
       {% else %}
-      <li><a href="{{ websiteUrl }}{{ url_for('login') }}"><i class="fa fa-sign-in"></i> تسجيل الدخول</a></li>
+      <li style="float: right;"><a href="{{ websiteUrl }}{{ url_for('login') }}"><i class="fa fa-sign-in"></i> Login</a></li>
       {% endif %}
     </ul>
-  </div>
-
-  <div class="widget">
-      <h4>آخر التعليقات</h4>
-      <script type="text/javascript" src="http://{{ disqusName }}.disqus.com/recent_comments_widget.js?num_items=2&hide_avatars=0&avatar_size=40&excerpt_length=200"></script>
-  </div>
-
-  <div class="widget">
-      <h4>ابقى على تواصل</h4>
-    <ul>
-      <li><a href="#"><i class="fa fa-facebook"></i> تابعني على فيسبوك</a></li>
-      <li><a href="#"><i class="fa fa-twitter"></i> تابعني على تويتر</a></li>
-      <li><a href="#"><i class="fa fa-google-plus"></i> تابعني على +جوجل</a></li>
-      <li><a href="https://github.com/mhsabbagh/zayzafoun"><i class="fa fa-github"></i> احصل على شفرة المدوّنة</a></li>
-    </ul>
-  </div>
-  </div>
+  </nav>
 
 
-  <div class="main-section">
+  <main>
     {% block content %} {% endblock %}
 
 
-  </div>
+  <footer>
+    <div class="widget">
+        <h4>Latest Comments</h4>
+        <script type="text/javascript" src="http://{{ disqusName }}.disqus.com/recent_comments_widget.js?num_items=2&hide_avatars=1&avatar_size=42&excerpt_length=200"></script>
+    </div>
 
+    <div class="widget">
+        <h4>Stay Connected</h4>
+      <ul>
+        <li><a href="#"><i class="fa fa-facebook"></i> Follow me on Facebook</a></li>
+        <li><a href="#"><i class="fa fa-twitter"></i> Follow me on Twitter</a></li>
+        <li><a href="#"><i class="fa fa-google-plus"></i> Follow me on +Google</a></li>
+        <li><a href="https://github.com/mhsabbagh/zayzafoun"><i class="fa fa-github"></i> Get blog source code</a></li>
+      </ul>
+    </div>
+  </footer>
+  </main>
 
+  
 
 </body>
 
