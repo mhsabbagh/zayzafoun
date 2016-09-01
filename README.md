@@ -9,7 +9,8 @@ Thanks for:
 * FontAwesome: http://fortawesome.github.io/Font-Awesome/
 * TinyMCE: http://www.tinymce.com/
 
-By: M.Hanny Sabbagh <hannysabbagh[at]hotmail.com]
+By: M.Hanny Sabbagh <mhsabbagh@outlook.com]
+Code license is GPL 3.
 
 ### Screenshots:
 
@@ -23,7 +24,7 @@ By: M.Hanny Sabbagh <hannysabbagh[at]hotmail.com]
 
 ### Installation:
 
-Download all the files an extract them to a new folder, then run:
+Download all the files and extract them to a new folder, then run:
 
     ./zayzafoun.py
 For deployment with apache2, you may see this: http://flask.pocoo.org/docs/0.10/deploying/mod_wsgi/ For deployment with nginx and others: http://flask.pocoo.org/docs/0.10/deploying/uwsgi/
