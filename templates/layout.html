@@ -6,7 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> {% block header %} {% endblock %}
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png" sizes="16x16"> 
+  {% block header %} {% endblock %}
 
 </head>
 
@@ -20,9 +22,9 @@
       <li><a href="{{ websiteUrl }}{{ url_for('archive') }}"><i class="fa fa-history"></i> Archive</a></li>
        {% if session.logged_in %}
       <li><a href="{{ websiteUrl }}{{ url_for('publish') }}"><i class="fa fa-plus-square "></i> New Content</a></li>
-      <li style="float: right;"><a href="{{ websiteUrl }}{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
+      <li class="accountlink"><a href="{{ websiteUrl }}{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
       {% else %}
-      <li style="float: right;"><a href="{{ websiteUrl }}{{ url_for('login') }}"><i class="fa fa-sign-in"></i> Login</a></li>
+      <li class="accountlink"><a href="{{ websiteUrl }}{{ url_for('login') }}"><i class="fa fa-sign-in"></i> Login</a></li>
       {% endif %}
     </ul>
   </nav>
@@ -35,7 +37,7 @@
   <footer>
     <div class="widget">
         <h4>Latest Comments</h4>
-        <script type="text/javascript" src="http://{{ disqusName }}.disqus.com/recent_comments_widget.js?num_items=2&hide_avatars=1&avatar_size=42&excerpt_length=200"></script>
+        <script type="text/javascript" src="http://{{ disqusName }}.disqus.com/recent_comments_widget.js?num_items=2&hide_avatars=0&avatar_size=42&excerpt_length=105"></script>
     </div>
 
     <div class="widget">

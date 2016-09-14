@@ -1,13 +1,17 @@
 {% extends "layout.html" %}
 
+{% block header %}
+  <title>{{ page[2] }}</title>
+{% endblock %}
+
 {% block content %}
 <div class="single-post">
   <a href="{{ currenturl }}">
     <h2>{{ page[2] }}</h2>
   </a>
-  <div class="post-content">{{ cleanCode(page[3])|safe }}</div>
+  <div class="post-content">{{ page[3]|safe }}</div>
 
-  <p><b><i class="fa fa-user"></i>Author:</b> {{ page[4] }} - <b><i class="fa fa-calendar"></i> Date:</b> {{ page[5] }}
+  <p><b><i class="fa fa-user"> </i> Author:</b> {{ page[4] }} - <b><i class="fa fa-calendar"></i> Date:</b> {{ page[5] }}
      		{% if session.logged_in %}
   			<a class="button"  href="{{ url_for('pageedit', pageurl=page[1]) }}"><i class="fa fa-edit"></i> Edit</a> - <a class="button"  href="{{ url_for('pagedelete', pageurl=page[1]) }}"><i class="fa fa-times"></i> Delete</a>
   			{% endif %}</p>
