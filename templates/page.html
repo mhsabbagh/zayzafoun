@@ -11,7 +11,7 @@
   </a>
   <div class="post-content">{{ page[3]|safe }}</div>
 
-  <p><b><i class="fa fa-user"> </i> Author:</b> {{ page[4] }} - <b><i class="fa fa-calendar"></i> Date:</b> {{ page[5] }}
+  <div class="post-date"><p><b><i class="fa fa-calendar"></i> Date:</b> {{ page[5] }}</div>
      		{% if session.logged_in %}
   			<a class="button"  href="{{ url_for('pageedit', pageurl=page[1]) }}"><i class="fa fa-edit"></i> Edit</a> - <a class="button"  href="{{ url_for('pagedelete', pageurl=page[1]) }}"><i class="fa fa-times"></i> Delete</a>
   			{% endif %}</p>

@@ -1,28 +1,24 @@
 @import url("m.style.css");
 @font-face {
-  font-family: 'Lato';
-  src: url("Lato-Regular.ttf");
+  font-family: 'droid-serif';
+  src: url("droid-serif.woff2");
   font-weight: normal;
-}
-@font-face {
-  font-family: 'Lato';
-  src: url("Lato-Semibold.ttf");
-  font-weight: bold;
 }
 body {
   margin: 0;
   padding: 0;
-  background: #f9f9f9;
-  font-family: Lato;
+  background: #fff;
+  font-family: droid-serif;
   transition-duration: 0.5s ease;
 }
 nav {
-  background: #e74c3c;
+  background: #2C2C2C;
   width: 100%;
   position: fixed;
   left: 0;
   top: 0;
   z-index: 1001;
+  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
 }
 nav > ul {
   list-style: none;
@@ -38,21 +34,17 @@ nav > ul > li a {
 }
 nav > ul > li a:hover {
   background: #fff;
-  color: #e74c3c;
+  color: #2C2C2C;
 }
 main {
-  width: 90%;
+  width: 70%;
   margin: 0 auto;
   margin-top: 3em;
   padding: 1em;
-  background: rgba(255, 255, 255, 0.97);
-  -webkit-box-shadow: 0px 0px 2.5px 0px rgba(50, 50, 50, 0.75);
-  -moz-box-shadow:    0px 0px 2.5px 0px rgba(50, 50, 50, 0.75);
-  box-shadow:         0px 0px 2.5px 0px rgba(50, 50, 50, 0.75);
 }
-footer .widget {
-  display: table-cell;
-  width: 33%;
+footer {
+  text-align: center;
+  color: #555;
 }
 textarea {
   direction: rtl;
@@ -65,17 +57,17 @@ textarea {
 }
 h1,h2,h3 {
   text-align: center;
-  color: #e74c3c;
+  color: #2C2C2C;
 }
 h4 {
-  color: #2c3e50;
+  color: #2C2C2C;
 }
 a {
-  color: #e74c3c;
+  color: #999EBB;
   text-decoration: none;
 }
 a:hover {
-  color: #c0392b;
+  color: #5461AD;
   transition-duration: 0.5s;
 }
 img {
@@ -116,10 +108,12 @@ code {
 }
 .archive {
   list-style-type: none;
+
 }
 .archive li {
   width: 100%;
-  font-size: 22px;
+  font-size: 16px;
+  text-align: center;
 }
 .formContainer {
   margin: 10px auto;
@@ -141,4 +135,29 @@ code {
 }
 .accountlink {
   float: right;
+}
+.single-post {
+  font-size: 18px;
+  text-align: justify;
+  text-justify: inter-word;
+  color: #000;
+}
+.index-post {
+  font-size: 18px;
+  text-align: center;
+  text-justify: inter-word;
+  color: #000;
+}
+.post-date {
+  color: #555;
+  font-size: 16px;
+  display: inline-block;
+}
+.post-tag {
+  text-align: left !important;
+  background: #000;
+  display: inline-block;
+  color: #fff;
+  padding: 0.333333em;
+  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
 }

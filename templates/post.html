@@ -14,14 +14,21 @@ if (sure == true) {
   <a href="{{ currentUrl }}">
     <h2>{{ post[1] }}</h2>
   </a>
-  <p>{{ cleanCode(post[3])|safe }}</p>
-  <p><b><i class="fa fa-user"></i> Author:</b> {{ post[4] }} - <b><i class="fa fa-calendar"></i> Date:</b> {{ post[5] }}
+  <p>{{ post[3]|safe }}</p>
+</div>
+
+<span class="post-tag">{{ post[5] }}</span>
+–
+<div class="post-date">
+  <p><b><i class="fa fa-calendar"></i> Date:</b> {{ post[6] }}
      		{% if session.logged_in %}
   			<a class="button" href="{{ url_for('postedit', posturl=post[2]) }}"><i class="fa fa-edit"></i> Edit</a></li>
         -
         <a class="button" onclick="checkIfSure()"><i class="fa fa-times"></i> Delete</a>
   			{% endif %}</p>
+</div>
 
+<center>
   <div id="disqus_thread"></div>
   <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
@@ -37,6 +44,6 @@ if (sure == true) {
     })();
   </script>
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</center>
 
-</div>
 {% endblock %}

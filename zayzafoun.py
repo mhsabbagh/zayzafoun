@@ -8,9 +8,6 @@ from contextlib import closing
 app = Flask(__name__)
 app.config.from_object("config")
 
-def cleanCode(text):
-  return text
-
 @app.context_processor
 def variables_def():
   return dict(
@@ -18,19 +15,16 @@ def variables_def():
         websiteUrl=request.url_root[:-1],
         disqusName=app.config["DISQUSNAME"],
         currentUrl=request.path,
-        cleanCode=cleanCode
         )
 
 def connect_db():
   return sqlite3.connect(app.config['DATABASE'])
-
 
 def init_db():
   with closing(connect_db()) as db:
     with app.open_resource(os.path.join(os.getcwd(), "schema.sql"), mode='r') as f:
       db.cursor().executescript(f.read())
     db.commit()
-
 
 def get_pages():
   fetch_pages = g.db.execute('select * from pages order by pageid')
@@ -41,26 +35,22 @@ def get_pages():
 def get_posts():
   posts = ""
   fetch_posts = g.db.execute('select * from posts order by postid desc')
-  posts = [dict(postid=x[0], posttitle=x[1], posturl=x[2], postcontent=x[
-                3], postauthor=x[4], postdate=x[5]) for x in fetch_posts.fetchall()]
+  posts = [dict(postid=x[0], posttitle=x[1], posturl=x[2], postcontent=x[3], postauthor=x[4], posttag=x[5], postdate=x[6]) for x in fetch_posts.fetchall()]
   return posts
 
-
 def single_post(posturl):
-  showingpost = g.db.execute(
-      'select * from posts where posturl = ?', (posturl,))
+  showingpost = g.db.execute('select * from posts where posturl = ?', (posturl,))
   for x in showingpost.fetchall():
-    postid, posttitle, posturl, postcontent, postauthor, postdate = x[
-        0], x[1], x[2], x[3], x[4], x[5]
-  post = [postid, posttitle, posturl, postcontent, postauthor, postdate]
+    postid, posttitle, posturl, postcontent, postauthor, posttag, postdate = x[0], x[1], x[2], x[3], x[4], x[5], x[6]
+  post = [postid, posttitle, posturl, postcontent, postauthor, posttag, postdate]
   return post
 
 def editpost(posturl):
   if session.get('logged_in'):
     getPost = g.db.execute('select * from posts where posturl = ?', (posturl,))
     for n in getPost.fetchall():
-      posttitle, posturl, postcontent, = n[1], n[2], n[3]
-    post = [posttitle, posturl, postcontent]
+      posttitle, posturl, postcontent, posttag = n[1], n[2], n[3], n[5]
+    post = [posttitle, posturl, postcontent, posttag]
     return post
   else:
     abort(404)
@@ -96,23 +86,22 @@ def teardown_request(exception):
 def page_not_found(e):
   return render_template('404.html'), 404
 
-
 @app.route('/')
 def show_index():
   return render_template('index.html', posts=get_posts(), pages=get_pages())
 
-@app.route('/<posturl>')
+@app.route('/post/<posturl>')
 def show_post(posturl):
   return render_template('post.html', post=single_post(posturl), posts=get_posts(), pages=get_pages())
 
-@app.route('/<posturl>/edit')
+@app.route('/post/<posturl>/edit')
 def postedit(posturl):
   if session.get('logged_in'):
     return render_template('edit.html', post = editpost(posturl), contentType = "post", pages=get_pages())
   else:
     abort(404)
 
-@app.route('/<posturl>/delete')
+@app.route('/post/<posturl>/delete')
 def postdelete(posturl):
   if session.get('logged_in'):
     g.db.execute('delete from posts where posturl = ?', (posturl,))
@@ -150,8 +139,8 @@ def publish():
   if session.get('logged_in'):
     if request.method == 'POST':
       if request.form["contenttype"] == "post":
-        g.db.execute('insert into posts (posttitle, posturl, postcontent, postauthor) values (?, ?, ?, ?)',
-                     (request.form['title'], request.form['url'], request.form['content'], session['username']))
+        g.db.execute('insert into posts (posttitle, posturl, postcontent, postauthor, posttag) values (?, ?, ?, ?, ?)',
+                     (request.form['title'], request.form['url'], request.form['content'], session['username'], request.form['post-tag']))
         g.db.commit()
         return redirect(request.url_root)
       else:
@@ -169,7 +158,7 @@ def doEdit():
   if session.get('logged_in'):
     if request.method == 'POST':
       if request.form["contenttype"] == "post":
-        g.db.execute('UPDATE posts SET posttitle = ?, postcontent = ? WHERE posturl = ?', (request.form['title'], request.form['content'], request.form['url']))
+        g.db.execute('UPDATE posts SET posttitle = ?, postcontent = ?, posttag = ? WHERE posturl = ?', (request.form['title'], request.form['content'], request.form['post-tag'], request.form['url']))
         g.db.commit()
         return redirect(request.url_root)
       else:

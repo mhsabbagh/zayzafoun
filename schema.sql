@@ -4,6 +4,7 @@ create table if not exists posts (
   posturl text not null,
   postcontent text not null,
   postauthor text not null,
+  posttag text not null,
   postdate TIMESTAMP
   DEFAULT CURRENT_TIMESTAMP
 );
