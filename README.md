@@ -20,8 +20,11 @@ By: M.Hanny Sabbagh <mhsabbagh@outlook.com>, Code license is GPL 3.
 ## Screenshots:
 
 ![Screenshot 0](http://i.imgur.com/l99G2PA.png)
+
 ![Screenshot 1](http://i.imgur.com/9PxPgRp.png)
+
 ![Screenshot 2](http://i.imgur.com/CyjWkUq.png)
+
 ![Screenshot 3](http://i.imgur.com/WY8fhtT.png)
 
 ## Installation:
