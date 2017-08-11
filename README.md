@@ -20,7 +20,12 @@ Built using Python, Flask, FontAwesome and TinyMCE. Thanks for Lato font which i
 
 ## Screenshots:
 
-![Screenshot 0](http://i.imgur.com/gkVgkCK.png)
+
+![Screenshot 1](http://i.imgur.com/dXA64DB.png)
+
+
+![Screenshot 3](http://i.imgur.com/v1ipKOO.png)
+
 
 ## Demo
 
