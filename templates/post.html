@@ -1,6 +1,6 @@
 {% extends "layout.html" %} {% block header %}
 <title>{{ post[1] }} - {{ websiteName }}</title>
-<meta name="description" content="{{ post[3]|truncate(100) }}">
+<meta name="description" content="{{ post[3]|safe }}">
 <script>
 function checkIfSure () {
 var sure = confirm("Are you sure you want to delete the post?");
