@@ -1,5 +1,6 @@
 {% extends "layout.html" %} {% block header %}
 <title>{{ websiteName }}</title>
+<meta name="description" content="{{ websiteDesc }}">
 
 {% endblock %} {% block content %}
 <div class="posts-section">
@@ -13,30 +14,21 @@
 
 	}
 	</script>
-	<div class="index-post">
+	<div class="single-post">
+	  
 		<a href="{{ url_for('show_index') }}post/{{ x.posturl }}">
 			<h2>{{ x.posttitle }}</h2>
 		</a> 
 		
-		<div class="post-excerpt">{{ x.postcontent|truncate(600)|safe }}</div>
-			{% if session.logged_in %}
-			<a class="button" href="{{ url_for('postedit', posturl=x.posturl) }}"><i class="fa fa-edit"></i> Edit</a>
-			-
-			<a class="button" onclick="checkIfSure{{ x.postid }}()"><i class="fa fa-times"></i> Delete</a>
-			{% endif %}
-			<div style="display: inline-block;">
-			<span class="post-tag">{{ x.posttag }}</span>
-			–
-			<span class="post-date"><p><i class="fa fa-calendar"></i> Date: {{ x.postdate[0:10] }}</span>
-			</div>
-		</p>
+		<div class="post-excerpt">{{ x.postcontent|truncate(500)|safe }}</div>
+		
 	</div>
 
 	
 	{% else %}
 		<h2><i class="fa fa-star fa-4x" aria-hidden="true"></i>
 </h2>
-		<h3>Whoola! Your website is ready to go! Start by adding a new post or page from the top bar.</h3>
+		<h2>Yahoooo! Your website is ready to go! Start by adding a new post or page from the "New Content" page you'd see in bottom after you login.</h2>
 	{% endfor %}
 </div>
 {% endblock %}

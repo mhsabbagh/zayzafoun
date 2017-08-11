@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
-WEBSITENAME = "Zayzafoun"
+WEBSITENAME = "M.Hanny Sabbagh"
+WEBSITEDESC = "Free and open source software user & developer. This is my personal blog in English. All mentioned opinions are mine alone."
 DATABASE = os.path.join(os.getcwd(), "zayzafoun.db")
 DEBUG = True
 SECRET_KEY = os.urandom(20)

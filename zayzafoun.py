@@ -1,8 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import sqlite3, os
+import sqlite3, os, datetime
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, current_app
 from contextlib import closing
+from werkzeug.contrib.atom import AtomFeed
+from urlparse import urljoin
 
 # Creating the application.
 app = Flask(__name__)
@@ -12,6 +14,7 @@ app.config.from_object("config")
 def variables_def():
   return dict(
         websiteName=unicode(app.config["WEBSITENAME"], "utf-8"),
+        websiteDesc=unicode(app.config["WEBSITEDESC"], "utf-8"),
         websiteUrl=request.url_root[:-1],
         disqusName=app.config["DISQUSNAME"],
         currentUrl=request.path,
@@ -31,26 +34,25 @@ def get_pages():
   pages = [dict(pageid=y[0], pageurl=y[1], pagetitle=y[2]) for y in fetch_pages.fetchall()]
   return pages
 
-
 def get_posts():
   posts = ""
   fetch_posts = g.db.execute('select * from posts order by postid desc')
-  posts = [dict(postid=x[0], posttitle=x[1], posturl=x[2], postcontent=x[3], postauthor=x[4], posttag=x[5], postdate=x[6]) for x in fetch_posts.fetchall()]
+  posts = [dict(postid=x[0], posttitle=x[1], posturl=x[2], postcontent=x[3], postauthor=x[4], postdate=x[5]) for x in fetch_posts.fetchall()]
   return posts
 
 def single_post(posturl):
   showingpost = g.db.execute('select * from posts where posturl = ?', (posturl,))
   for x in showingpost.fetchall():
-    postid, posttitle, posturl, postcontent, postauthor, posttag, postdate = x[0], x[1], x[2], x[3], x[4], x[5], x[6]
-  post = [postid, posttitle, posturl, postcontent, postauthor, posttag, postdate]
+    postid, posttitle, posturl, postcontent, postauthor, postdate = x[0], x[1], x[2], x[3], x[4], x[5]
+  post = [postid, posttitle, posturl, postcontent, postauthor, postdate]
   return post
 
 def editpost(posturl):
   if session.get('logged_in'):
     getPost = g.db.execute('select * from posts where posturl = ?', (posturl,))
     for n in getPost.fetchall():
-      posttitle, posturl, postcontent, posttag = n[1], n[2], n[3], n[5]
-    post = [posttitle, posturl, postcontent, posttag]
+      posttitle, posturl, postcontent = n[1], n[2], n[3]
+    post = [posttitle, posturl, postcontent]
     return post
   else:
     abort(404)
@@ -139,8 +141,8 @@ def publish():
   if session.get('logged_in'):
     if request.method == 'POST':
       if request.form["contenttype"] == "post":
-        g.db.execute('insert into posts (posttitle, posturl, postcontent, postauthor, posttag) values (?, ?, ?, ?, ?)',
-                     (request.form['title'], request.form['url'], request.form['content'], session['username'], request.form['post-tag']))
+        g.db.execute('insert into posts (posttitle, posturl, postcontent, postauthor) values (?, ?, ?, ?)',
+                     (request.form['title'], request.form['url'], request.form['content'], session['username']))
         g.db.commit()
         return redirect(request.url_root)
       else:
@@ -153,12 +155,28 @@ def publish():
   else:
     return abort(404)
 
+def make_external(url):
+  return urljoin(request.url_root, url)
+
+
+@app.route('/posts.atom')
+def recent_feed():
+  feed = AtomFeed('Recent Articles',
+                  feed_url=request.url, url=request.url_root)
+  articles = get_posts()[:5]
+  for y in range(len(articles)):
+      feed.add(articles[y]['posttitle'], articles[y]['postcontent'],
+               content_type='html',
+               url=make_external(articles[y]['posturl']),
+               updated=datetime.datetime.strptime(articles[y]['postdate'], '%Y-%m-%d %H:%M:%S'))
+  return feed.get_response()
+
 @app.route('/publishedit', methods=['POST'])
 def doEdit():
   if session.get('logged_in'):
     if request.method == 'POST':
       if request.form["contenttype"] == "post":
-        g.db.execute('UPDATE posts SET posttitle = ?, postcontent = ?, posttag = ? WHERE posturl = ?', (request.form['title'], request.form['content'], request.form['post-tag'], request.form['url']))
+        g.db.execute('UPDATE posts SET posttitle = ?, postcontent = ? WHERE posturl = ?', (request.form['title'], request.form['content'], request.form['url']))
         g.db.commit()
         return redirect(request.url_root)
       else:

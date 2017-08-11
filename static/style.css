@@ -1,24 +1,27 @@
 @import url("m.style.css");
 @font-face {
-  font-family: 'droid-serif';
-  src: url("droid-serif.woff2");
-  font-weight: normal;
+  font-family: 'Lato';
+  src: url("Lato-Regular.ttf");
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'Lato';
+  src: url("Lato-Light.ttf");
+  font-weight: 400;
 }
 body {
   margin: 0;
   padding: 0;
-  background: #fff;
-  font-family: droid-serif;
+  background: #f9f9f9;
+  font-family: 'Lato';
+  font-weight: 400;
   transition-duration: 0.5s ease;
 }
 nav {
-  background: #2C2C2C;
-  width: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 1001;
-  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+  margin-right: auto;
+  margin-left: auto;
+  width: 80%;
+  text-align: center;
 }
 nav > ul {
   list-style: none;
@@ -30,11 +33,8 @@ nav > ul > li {
 }
 nav > ul > li a {
   padding: 10px;
-  color: #fff;
-}
-nav > ul > li a:hover {
-  background: #fff;
-  color: #2C2C2C;
+  font-size: 20px;
+  color: #555;
 }
 main {
   width: 70%;
@@ -46,6 +46,10 @@ footer {
   text-align: center;
   color: #555;
 }
+footer > ul > li {
+  display: inline-block;
+  margin: 5px;
+}
 textarea {
   direction: rtl;
   -webkit-box-sizing: border-box;
@@ -55,19 +59,23 @@ textarea {
   width: 100%;
   height: 200px;
 }
-h1,h2,h3 {
-  text-align: center;
-  color: #2C2C2C;
+h1 {
+  color: #555;
+  font-size: 30px;
+  font-weight: 400;
 }
-h4 {
-  color: #2C2C2C;
+h2 {
+  text-align: center;
+  color: #555;
+  font-size: 28px;
+  font-weight: 500;
 }
 a {
-  color: #999EBB;
   text-decoration: none;
+  color: #5461AD;
 }
 a:hover {
-  color: #5461AD;
+  text-decoration: underline;
   transition-duration: 0.5s;
 }
 img {
@@ -106,9 +114,14 @@ code {
   margin: 0 auto;
   padding: 1%;
 }
+.site-desc p {
+  width: 50%;
+  text-align: center;
+  margin: auto;
+  padding-bottom: 1em;
+}
 .archive {
   list-style-type: none;
-
 }
 .archive li {
   width: 100%;
@@ -133,31 +146,14 @@ code {
 .button:hover {
   background: #f0f0f0;
 }
-.accountlink {
-  float: right;
-}
 .single-post {
-  font-size: 18px;
+  font-weight: 400;
+  font-size: 24px;
   text-align: justify;
-  text-justify: inter-word;
   color: #000;
+  padding-bottom: 1.66666em;
 }
-.index-post {
-  font-size: 18px;
-  text-align: center;
-  text-justify: inter-word;
-  color: #000;
-}
-.post-date {
-  color: #555;
-  font-size: 16px;
-  display: inline-block;
-}
-.post-tag {
-  text-align: left !important;
-  background: #000;
-  display: inline-block;
-  color: #fff;
-  padding: 0.333333em;
-  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+.post-meta {
+  color: #999;
+  font-size: 17px;
 }

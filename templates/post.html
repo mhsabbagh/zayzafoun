@@ -1,5 +1,6 @@
 {% extends "layout.html" %} {% block header %}
-<title>{{ post[1]|safe }}</title>
+<title>{{ post[1] }} - {{ websiteName }}</title>
+<meta name="description" content="{{ post[3]|truncate(100) }}">
 <script>
 function checkIfSure () {
 var sure = confirm("Are you sure you want to delete the post?");
@@ -11,21 +12,25 @@ if (sure == true) {
 
 {% block content %}
 <div class="single-post">
+
   <a href="{{ currentUrl }}">
     <h2>{{ post[1] }}</h2>
   </a>
+
+  <div class="post-meta"><p><b><i class="fa fa-calendar"></i></b> {{ post[5] }}</p></div>
+
   <p>{{ post[3]|safe }}</p>
+
 </div>
 
-<span class="post-tag">{{ post[5] }}</span>
-–
-<div class="post-date">
-  <p><b><i class="fa fa-calendar"></i> Date:</b> {{ post[6] }}
-     		{% if session.logged_in %}
-  			<a class="button" href="{{ url_for('postedit', posturl=post[2]) }}"><i class="fa fa-edit"></i> Edit</a></li>
+
+<div class="post-footer">
+  <p>
+     {% if session.logged_in %}
+       <a class="button" href="{{ url_for('postedit', posturl=post[2]) }}"><i class="fa fa-edit"></i> Edit</a></li>
         -
         <a class="button" onclick="checkIfSure()"><i class="fa fa-times"></i> Delete</a>
-  			{% endif %}</p>
+     {% endif %}</p>
 </div>
 
 <center>

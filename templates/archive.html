@@ -3,7 +3,7 @@
 {% endblock %} {% block content %}
   <ul class="archive">
 	{% for x in posts %}
-   <li><a href="{{x.posturl}}">{{ x.posttitle}} </a> - {{ x.postdate[0:10] }} </li>
+   <li><a href="/post/{{x.posturl}}">{{ x.posttitle}} </a> - {{ x.postdate[0:10] }} </li>
 
 
 	{% else %}
