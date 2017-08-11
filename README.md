@@ -28,7 +28,7 @@ Built using Python, Flask, FontAwesome and TinyMCE. Thanks for Lato font which i
 
 ## Demo
 
-Soon.
+Visit my personal blog: http://blog.mhsabbagh.com/
 
 ## Installation:
 
