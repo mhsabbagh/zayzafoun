@@ -2,6 +2,8 @@
 
 A personal blog script written in Python & Flask. Focuses on simplicity and getting the job done. Still in the early testing stages. Your contributions are more than welcome.
 
+Please note that this script focuses on being minimal. If you are about to submit a big pull request, open an issue first.
+
 ## Features:
 
 * Very simple & clean.
